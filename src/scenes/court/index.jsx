@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { mockDataContacts, mockDataCourts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Contacts = () => {
+const Courts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -17,25 +17,36 @@ const Contacts = () => {
     { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
-      headerName: "Họ và Tên",
+      headerName: "Tên sân",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Tuổi",
+      field: "courtOwner",
+      headerName: "Tên chủ sân",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "courtsQuantity",
+      headerName: "Số lượng sân",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Số điện thoại",
+      field: "address",
+      headerName: "Địa chỉ",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "pricePerHour",
+      headerName: "Giá trong tuần",
+      flex: 1,
+    },
+    {
+      field: "priceWekkend",
+      headerName: "Giá cuối tuần",
       flex: 1,
     },
     // {
@@ -63,7 +74,7 @@ const Contacts = () => {
 
   return (
     <Box m="20px">
-      <Header title="Khách hàng" subtitle="Quản lí danh sách khách hàng" />
+      <Header title="Sân cầu lông" subtitle="Quản lí danh sách sân cầu lông" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -97,7 +108,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={mockDataCourts}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -106,4 +117,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Courts;

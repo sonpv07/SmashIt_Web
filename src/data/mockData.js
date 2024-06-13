@@ -75,6 +75,39 @@ export const mockDataTeam = [
   },
 ];
 
+export const mockDataCourts = [
+  {
+    id: 1,
+    name: "Vũ Trụ",
+    courtsQuantity: 35,
+    phone: "(665)121-5454",
+    address: "0912 Won Street, Alabama, SY 10001",
+    pricePerHour: 100,
+    priceWekkend: 200,
+    courtOwner: "Nguyen Ho",
+  },
+  {
+    id: 2,
+    name: "Khánh Linh",
+    courtsQuantity: 35,
+    phone: "(665)121-5454",
+    address: "0912 Won Street, Alabama, SY 10001",
+    pricePerHour: 100,
+    priceWekkend: 200,
+    courtOwner: "Nguyen Ho",
+  },
+  {
+    id: 3,
+    name: "Long Sen",
+    courtsQuantity: 35,
+    phone: "(665)121-5454",
+    address: "0912 Won Street, Alabama, SY 10001",
+    pricePerHour: 100,
+    priceWekkend: 200,
+    courtOwner: "Nguyen Ho",
+  },
+];
+
 export const mockDataContacts = [
   {
     id: 1,

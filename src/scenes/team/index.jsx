@@ -43,7 +43,6 @@ const Team = () => {
         return (
           <Box
             width="60%"
-            m="0 auto"
             p="5px"
             display="flex"
             justifyContent="center"
@@ -70,7 +69,7 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Header title="Thành viên" subtitle="Quản lí thành viên nhóm" />
       <Box
         m="40px 0 0 0"
         height="75vh"

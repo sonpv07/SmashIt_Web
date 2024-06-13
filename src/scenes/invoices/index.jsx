@@ -8,16 +8,16 @@ const Invoices = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: "ID", flex: 0.1 },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Họ và Tên",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "phone",
-      headerName: "Phone Number",
+      headerName: "Số điện thoại",
       flex: 1,
     },
     {
@@ -27,7 +27,7 @@ const Invoices = () => {
     },
     {
       field: "cost",
-      headerName: "Cost",
+      headerName: "Số tiền",
       flex: 1,
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
@@ -37,14 +37,17 @@ const Invoices = () => {
     },
     {
       field: "date",
-      headerName: "Date",
+      headerName: "Ngày giao dịch",
       flex: 1,
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header
+        title="Lịch Sử Giao Dịch"
+        subtitle="Danh sách lịch sử giao dịch"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
