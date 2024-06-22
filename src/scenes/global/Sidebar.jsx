@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import MyLocationOutlinedIcon from "@mui/icons-material/MyLocationOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -54,10 +55,10 @@ const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#F37148 !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#F37148 !important",
         },
       }}
     >
@@ -70,7 +71,7 @@ const Sidebar = () => {
               icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
               style={{
                 margin: "10px 0 20px 0",
-                color: colors.grey[100],
+                color: "black",
               }}
             >
               {!isCollapsed && (
@@ -109,9 +110,9 @@ const Sidebar = () => {
                   >
                     Ed Roh
                   </Typography>
-                  <Typography variant="h5" color={colors.greenAccent[500]}>
+                  {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                     VP Fancy Admin
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </Box>
             )}
@@ -153,7 +154,7 @@ const Sidebar = () => {
               <Item
                 title="Quản lí sân"
                 to="/courts"
-                icon={<ContactsOutlinedIcon />}
+                icon={<MyLocationOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -165,7 +166,7 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
 
-              <Typography
+              {/* <Typography
                 variant="h6"
                 color={colors.grey[300]}
                 sx={
@@ -196,43 +197,43 @@ const Sidebar = () => {
                 icon={<HelpOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
 
               <Typography
                 variant="h6"
                 color={colors.grey[300]}
-                sx={{ m: "15px 0 5px 20px" }}
+                sx={{ m: "15px 0 5px 15px" }}
               >
-                Charts
+                Biểu đồ
               </Typography>
               <Item
-                title="Bar Chart"
+                title="Khung giờ được yêu thích"
                 to="/bar"
                 icon={<BarChartOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
-                title="Pie Chart"
+                title="Lượng người đung"
                 to="/pie"
                 icon={<PieChartOutlineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
-                title="Line Chart"
+                title="Doanh thu"
                 to="/line"
                 icon={<TimelineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />
-              <Item
+              {/* <Item
                 title="Geography Chart"
                 to="/geography"
                 icon={<MapOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
             </Box>
           </Menu>
         </ProSidebar>

@@ -12,6 +12,7 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import PieChart from "../../components/PieChart";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Dashboard = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
-        <Box>
+        {/* <Box>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -36,18 +37,13 @@ const Dashboard = () => {
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
           </Button>
-        </Box>
+        </Box> */}
       </Box>
 
       {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
+      <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap="20px">
         {/* ROW 1 */}
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -65,7 +61,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -91,6 +87,7 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          padding={"20px 30px"}
         >
           <StatBox
             title="32,441"
@@ -104,7 +101,7 @@ const Dashboard = () => {
             }
           />
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -122,12 +119,12 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
 
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
-          gridRow="span 2"
+          height={"350px"}
           backgroundColor={colors.primary[400]}
         >
           <Box
@@ -167,7 +164,7 @@ const Dashboard = () => {
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          height={"350px"}
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
@@ -218,13 +215,13 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn="span 6"
+          height={"350px"}
           backgroundColor={colors.primary[400]}
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Lượng người dùng
           </Typography>
           <Box
             display="flex"
@@ -232,20 +229,15 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            {/* <ProgressCircle size="125" /> */}
+            <Box height="300px" mt="-20px" width={"600px"}>
+              <PieChart />
+            </Box>
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
-          gridRow="span 2"
+          gridColumn="span 6"
+          height={"350px"}
           backgroundColor={colors.primary[400]}
         >
           <Typography
@@ -253,13 +245,13 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Sales Quantity
+            Khung giờ được đặt
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="300px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -275,7 +267,7 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

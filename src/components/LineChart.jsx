@@ -39,7 +39,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         },
         tooltip: {
           container: {
-            color: colors.primary[500],
+            background: colors.grey[800],
           },
         },
       }}
@@ -110,6 +110,20 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
           ],
         },
       ]}
+      tooltip={(slice) => (
+        <div
+          style={{
+            background: colors.grey[800],
+            padding: "12px",
+            borderRadius: "5px",
+            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <div style={{ color: "#fff", marginBottom: "5px" }}>
+            {slice.id}: {slice.value}
+          </div>
+        </div>
+      )}
     />
   );
 };

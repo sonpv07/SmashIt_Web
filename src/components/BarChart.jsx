@@ -11,15 +11,16 @@ const BarChart = ({ isDashboard = false }) => {
     <ResponsiveBar
       data={data}
       theme={{
-        // added
         axis: {
           domain: {
             line: {
               stroke: colors.grey[100],
+              fontSize: !isDashboard ? 8 : 10,
             },
           },
           legend: {
             text: {
+              fontSize: !isDashboard && 16,
               fill: colors.grey[100],
             },
           },
@@ -30,6 +31,7 @@ const BarChart = ({ isDashboard = false }) => {
             },
             text: {
               fill: colors.grey[100],
+              fontSize: isDashboard && 8,
             },
           },
         },
@@ -38,14 +40,20 @@ const BarChart = ({ isDashboard = false }) => {
             fill: colors.grey[100],
           },
         },
+        tooltip: {
+          container: {
+            color: colors.primary[500],
+          },
+        },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      indexBy="country"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-      padding={0.3}
+      keys={["quantity"]}
+      indexBy="slot"
+      margin={{ top: 50, right: 130, bottom: 100, left: 60 }}
+      padding={0.4}
+      groupMode="grouped"
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={{ scheme: "nivo" }}
+      colors={"#094978"}
       defs={[
         {
           id: "dots",
@@ -66,29 +74,41 @@ const BarChart = ({ isDashboard = false }) => {
           spacing: 10,
         },
       ]}
-      borderColor={{
-        from: "color",
-        modifiers: [["darker", "1.6"]],
-      }}
+      fill={[
+        {
+          match: {
+            id: "fries",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "sandwich",
+          },
+          id: "lines",
+        },
+      ]}
+      borderColor={{ theme: "background" }}
       axisTop={null}
       axisRight={null}
       axisBottom={{
-        tickSize: 5,
+        tickSize: 10,
         tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        tickRotation: 40,
+        legend: "Khung giờ",
         legendPosition: "middle",
-        legendOffset: 32,
+        legendOffset: 90,
+        truncateTickAt: 0,
       }}
       axisLeft={{
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: "Lượt đặt",
         legendPosition: "middle",
         legendOffset: -40,
+        truncateTickAt: 0,
       }}
-      enableLabel={false}
       labelSkipWidth={12}
       labelSkipHeight={12}
       labelTextColor={{
@@ -102,7 +122,6 @@ const BarChart = ({ isDashboard = false }) => {
           direction: "column",
           justify: false,
           translateX: 120,
-          translateY: 0,
           itemsSpacing: 2,
           itemWidth: 100,
           itemHeight: 20,
@@ -117,12 +136,19 @@ const BarChart = ({ isDashboard = false }) => {
               },
             },
           ],
+          data: [{ id: "quantity", label: "Số lượng", color: "#094978" }],
         },
       ]}
+      tooltip={({ id, value, indexValue }) => (
+        <strong>
+          {indexValue}: {value} Số lượng
+        </strong>
+      )}
       role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
-      }}
+      ariaLabel="Nivo bar chart demo"
+      barAriaLabel={(e) =>
+        e.id + ": " + e.formattedValue + " in slot: " + e.indexValue
+      }
     />
   );
 };

@@ -16,7 +16,7 @@ const Courts = () => {
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "name",
+      field: "courtName",
       headerName: "Tên sân",
       flex: 1,
       cellClassName: "name-column--cell",
@@ -28,7 +28,7 @@ const Courts = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "courtsQuantity",
+      field: "numberOfCourt",
       headerName: "Số lượng sân",
       type: "number",
       headerAlign: "left",
@@ -45,7 +45,7 @@ const Courts = () => {
       flex: 1,
     },
     {
-      field: "priceWekkend",
+      field: "priceAtWeekend",
       headerName: "Giá cuối tuần",
       flex: 1,
     },
@@ -60,10 +60,23 @@ const Courts = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://cc1f-115-72-191-59.ngrok-free.app/api/Authentication/get-accounts"
+          "http://localhost:5036/api/BadmintonCourt/get-all-badminton-courts",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImp0aSI6IjkwNzlhOGE3LWM1MmYtNDgxOS1iZTY4LTdiZjc0MjJhN2Y2ZSIsImlhdCI6IjE0IiwiVXNlck5hbWUiOiJQaGFtIFZpbmggU29uIiwiVXNlcklkIjoiOCIsImV4cCI6MTg0NDU3NzA4MiwiaXNzIjoiU21hc2hJdCIsImF1ZCI6IlNtYXNoSXRDbGllbnQifQ.V2_KGykezgg1jHl9p9LyG9TPrhwJNqJKo26nPI8LKkE",
+            },
+          }
         );
 
-        console.log(res);
+        console.log(res.data);
+
+        if (res.data.statusCode === 200) {
+          setData(res.data.data);
+        }
+
+        console.log(res.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -89,7 +102,7 @@ const Courts = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#299083",
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -97,7 +110,7 @@ const Courts = () => {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#299083",
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
@@ -108,7 +121,7 @@ const Courts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataCourts}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

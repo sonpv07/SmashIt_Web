@@ -84,7 +84,7 @@ const Team = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#299083",
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -92,7 +92,7 @@ const Team = () => {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: "#299083",
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
