@@ -1,68 +1,143 @@
+import {
+  Box,
+  Button,
+  Divider,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
+import { useGlobalContext } from "../../context/GlobalProvider";
 import { useNavigate } from "react-router-dom";
-import useLogin from "../../hooks/useLogin";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+  outline: "none",
+};
 
 const Login = () => {
-  const navigate = useNavigate();
-
-  const { loading, login } = useLogin();
+  const navigation = useNavigate();
+  const { setIsLogged, setUser, login } = useGlobalContext();
+  const [error, setError] = useState(false);
 
   const [input, setInput] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const [open, setOpen] = React.useState(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    await login(input);
+  const handleLogin1 = () => {
+    if (input.username === "admin" && input.password === "admin") {
+      setIsLogged(true);
+      setUser("Admin");
+      navigation("/");
+    }
+  };
+
+  const handleLogin = async () => {
+    const body = {
+      email: input.email,
+      password: input.password,
+    };
+
+    const res = await login(body);
+
+    if (res) {
+      setIsLogged(true);
+      navigation("/");
+    } else {
+      setError(true);
+    }
+
+    console.log(res);
+    console.log(body);
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-white min-w-100 text-center">
-      <div className="">
-        <h1 className="text-3xl font-bold text-black">Login</h1>
-        <form className="w-80" onSubmit={handleLogin}>
-          <div>
-            <label className="label text-black">Username: </label>
-            <input
-              type="text"
-              className="w-full px-3 py-2 input bg-stone-200"
-              value={input.username}
-              onChange={(e) => {
-                setInput({ ...input, username: e.target.value });
-              }}
-            />
-          </div>
-          <div>
-            <label className="label text-black">Password: </label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 input bg-stone-200"
-              value={input.password}
-              onChange={(e) => {
-                setInput({ ...input, password: e.target.value });
-              }}
-            />
-          </div>
-          <div className="flex w-full justify-between px-2 py-4">
-            <button
-              className="w-28 px-4 py-3 bg-gray-400 rounded-xl text-white"
-              onClick={() => {
-                navigate("/register");
-              }}
-            >
-              Register
-            </button>
-            <button
-              className="w-28 px-4 py-3 bg-green-800 rounded-xl text-white"
-              type="submit"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Modal
+      open={open}
+      aria-labelledby="parent-modal-title"
+      aria-describedby="parent-modal-description"
+    >
+      <Box
+        sx={[
+          style,
+          {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "white",
+            p: 4,
+            boxShadow: 3,
+            borderRadius: 2,
+          },
+        ]}
+      >
+        <Typography
+          variant="body1"
+          color="initial"
+          fontSize={24}
+          fontWeight={600}
+          sx={{ pb: "10px" }}
+        >
+          Đăng nhập
+        </Typography>
+        <Divider />
+        <Typography variant="body1" sx={{ fontWeight: 600, pt: "10px" }}>
+          Chào mừng đến với trang quản lý Smash It
+        </Typography>
+        <TextField
+          label="Email"
+          value={input.email}
+          onChange={(e) => setInput({ ...input, email: e.target.value })}
+          fullWidth
+          margin="normal"
+          onFocus={() => setError(false)}
+        />
+        <TextField
+          label="Mật khẩu"
+          type="password"
+          value={input.password}
+          onChange={(e) => setInput({ ...input, password: e.target.value })}
+          fullWidth
+          margin="normal"
+          onFocus={() => setError(false)}
+        />
+        {error && (
+          <Typography variant="body1" color="red" fontSize={13}>
+            Sai email hoặc mật khẩu. Vui lòng đăng nhập lại
+          </Typography>
+        )}
+        <Button
+          variant="contained"
+          onClick={handleLogin}
+          sx={{
+            width: "100%",
+            mt: "20px",
+            textTransform: "none",
+            fontWeight: 600,
+          }}
+        >
+          Đăng nhập
+        </Button>
+      </Box>
+    </Modal>
   );
 };
 

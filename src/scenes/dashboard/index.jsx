@@ -12,10 +12,18 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { signOut, isLogged } = useGlobalContext();
+  const navigation = useNavigate();
+  const handleSignOut = () => {
+    signOut();
+    navigation("/login");
+  };
 
   return (
     <Box m="20px">
@@ -32,6 +40,7 @@ const Dashboard = () => {
               fontWeight: "bold",
               padding: "10px 20px",
             }}
+            onClick={() => handleSignOut()}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
