@@ -8,6 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { ToastContainer } from "react-toastify";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -25,9 +26,9 @@ const Topbar = () => {
 
       <img
         alt="profile-user"
-        width="120px"
-        height="120px"
-        src={`../../assets/logo1.png`}
+        width="150px"
+        height="150px"
+        src={`../../assets/logo3.png`}
         style={{ cursor: "pointer", borderRadius: "50%" }}
       />
 

@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BadmintonCourtService from "../../service/BadmintonCourtService";
 import { token } from "../../service";
+import CourtRevenueChart from "../../components/CourtRevenueChart";
 
-const Bar = () => {
+const CourtRevenue = () => {
   const [chosenCourt, setChosenCourt] = useState("");
 
   const [courtList, setCourtList] = useState([]);
@@ -65,7 +66,7 @@ const Bar = () => {
                   setFilter(e.target.value);
                 }}
                 autoWidth
-                label="Bộ lọc"
+                label="Sân"
               >
                 <MenuItem value={0}>Ngày</MenuItem>
                 <MenuItem value={1}>Tuần</MenuItem>
@@ -74,12 +75,12 @@ const Bar = () => {
             </FormControl>
           </Box>
         </Box>
-        <Box height={"75vh"}>
-          <BarChart />
+        <Box height="75vh">
+          <CourtRevenueChart />
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default Bar;
+export default CourtRevenue;

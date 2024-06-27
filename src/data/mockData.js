@@ -409,6 +409,33 @@ export const mockBarData = [
   },
 ];
 
+export const courtRevenueData = [
+  {
+    date: "20/6",
+    revenue: 1000000,
+  },
+  {
+    date: "21/6",
+    revenue: 4000000,
+  },
+  {
+    date: "22/6",
+    revenue: 1200000,
+  },
+  {
+    date: "23/6",
+    revenue: 1500000,
+  },
+  {
+    date: "24/6",
+    revenue: 1000000,
+  },
+  {
+    date: "25/6",
+    revenue: 2000000,
+  },
+];
+
 export const mockPieData = [
   {
     id: "Người chơi",

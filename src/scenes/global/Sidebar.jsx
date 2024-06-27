@@ -108,7 +108,7 @@ const Sidebar = () => {
                     fontWeight="bold"
                     sx={{ m: "10px 0 0 0" }}
                   >
-                    Ed Roh
+                    Pham Son
                   </Typography>
                   {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                     VP Fancy Admin
@@ -137,13 +137,13 @@ const Sidebar = () => {
               >
                 Thông số
               </Typography>
-              <Item
+              {/* <Item
                 title="Quản lí thành viên"
                 to="/team"
                 icon={<PeopleOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}
-              />
+              /> */}
               <Item
                 title="Quản lí khách hàng"
                 to="/contacts"
@@ -223,6 +223,13 @@ const Sidebar = () => {
               <Item
                 title="Doanh thu"
                 to="/line"
+                icon={<TimelineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Doanh thu sân"
+                to="/courtRevenue"
                 icon={<TimelineOutlinedIcon />}
                 selected={selected}
                 setSelected={setSelected}

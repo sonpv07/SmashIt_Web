@@ -6,6 +6,8 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import UserService from "../../service/UserService";
+import { token } from "../../service";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -20,13 +22,13 @@ const Contacts = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "age",
-      headerName: "Tuổi",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
+    // {
+    //   field: "age",
+    //   // headerName: "Tuổi",
+    //   type: "number",
+    //   headerAlign: "left",
+    //   align: "left",
+    // },
     {
       field: "phoneNumber",
       headerName: "Số điện thoại",
@@ -35,6 +37,13 @@ const Contacts = () => {
     {
       field: "email",
       headerName: "Email",
+      flex: 1,
+    },
+    {
+      field: "roleId",
+      headerName: "Vai trò",
+      valueGetter: (params) =>
+        params.row.roleId === 1 ? "Nguời chơi" : "Chủ sân",
       flex: 1,
     },
     // {
@@ -47,19 +56,10 @@ const Contacts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:5036/api/Authentication/get-accounts",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImp0aSI6IjkwNzlhOGE3LWM1MmYtNDgxOS1iZTY4LTdiZjc0MjJhN2Y2ZSIsImlhdCI6IjE0IiwiVXNlck5hbWUiOiJQaGFtIFZpbmggU29uIiwiVXNlcklkIjoiOCIsImV4cCI6MTg0NDU3NzA4MiwiaXNzIjoiU21hc2hJdCIsImF1ZCI6IlNtYXNoSXRDbGllbnQifQ.V2_KGykezgg1jHl9p9LyG9TPrhwJNqJKo26nPI8LKkE",
-            },
-          }
-        );
+        const res = await UserService.getAllContact(token);
 
-        if (res?.data?.statusCode === 200) {
-          setData(res.data.data.filter((item) => item.roleId !== 3));
+        if (res) {
+          setData(res.filter((item) => item.roleId !== 3));
         }
       } catch (error) {
         console.error("Error fetching data:", error);

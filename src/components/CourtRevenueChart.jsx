@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import { courtRevenueData as data } from "../data/mockData";
 
-const BarChart = ({ isDashboard = false }) => {
+const CourtRevenueChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -46,9 +46,9 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["quantity"]}
-      indexBy="slot"
-      margin={{ top: 50, right: 130, bottom: 100, left: 60 }}
+      keys={["revenue"]}
+      indexBy="date"
+      margin={{ top: 50, right: 130, bottom: 100, left: 100 }}
       padding={0.4}
       groupMode="grouped"
       valueScale={{ type: "linear" }}
@@ -94,17 +94,17 @@ const BarChart = ({ isDashboard = false }) => {
       axisBottom={{
         tickSize: 10,
         tickPadding: 5,
-        tickRotation: 40,
-        legend: "Khung giờ",
+        tickRotation: 0,
+        // legend: "Khung giờ",
         legendPosition: "middle",
-        legendOffset: 90,
+        legendOffset: 60,
         truncateTickAt: 0,
       }}
       axisLeft={{
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "Lượt đặt",
+        // legend: "Lượt đặt",
         legendPosition: "middle",
         legendOffset: -40,
         truncateTickAt: 0,
@@ -136,7 +136,7 @@ const BarChart = ({ isDashboard = false }) => {
               },
             },
           ],
-          data: [{ id: "quantity", label: "Số lượng", color: "#F37148" }],
+          data: [{ id: "revenue", label: "Doanh thu", color: "#F37148" }],
         },
       ]}
       tooltip={({ id, value, indexValue }) => (
@@ -153,4 +153,4 @@ const BarChart = ({ isDashboard = false }) => {
   );
 };
 
-export default BarChart;
+export default CourtRevenueChart;

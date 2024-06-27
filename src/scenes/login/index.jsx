@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useLogin from "../../hooks/useLogin";
+// import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const { loading, login } = useLogin();
+  // const { loading, login } = useLogin();
 
   const [input, setInput] = useState({
     username: "",
@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    await login(input);
+    // await login(input);
   };
 
   return (
