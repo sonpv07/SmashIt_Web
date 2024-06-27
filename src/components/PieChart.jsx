@@ -1,11 +1,56 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-import { mockPieData as data, mockPieData } from "../data/mockData";
+// import { mockPieData as data, mockPieData } from "../data/mockData";
+import { useEffect, useState } from "react";
+import UserService from "../service/UserService";
+import { token } from "../service";
 
 const PieChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [data, setData] = useState([
+    {
+      id: "numberOfPlayer",
+      label: "Người chơi",
+      value: 0,
+      color: "#F37148",
+    },
+    {
+      id: "numberOfOwner",
+      label: "Chủ sân",
+      value: 0,
+      color: "#299083",
+    },
+  ]);
+
+  console.log(data);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await UserService.getNumberOfPlayerAndOwner(token);
+
+      if (res) {
+        setData([
+          {
+            id: "Người chơi",
+            label: "Người chơi",
+            value: res.numberOfPlayer,
+            color: "#F37148",
+          },
+          {
+            id: "Chủ sân",
+            label: "Chủ sân",
+            value: res.numberOfOwner,
+            color: "#299083",
+          },
+        ]);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     // <ResponsivePie
@@ -88,7 +133,7 @@ const PieChart = ({ isDashboard = false }) => {
     // />
 
     <ResponsivePie
-      data={mockPieData}
+      data={data}
       theme={[
         ("tooltip": {
           wrapper: {},

@@ -8,6 +8,7 @@ import TransactionService from "../../service/TransactionService";
 import { token } from "../../service";
 import { formatNumber } from "../../utils";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const Invoices = () => {
   const theme = useTheme();
@@ -141,6 +142,11 @@ const Invoices = () => {
       field: "date",
       headerName: "Ngày giao dịch",
       flex: 1,
+      renderCell: (params) => (
+        <Typography>
+          {moment(params.row.timestamp).format("DD/MM/YYYY")}
+        </Typography>
+      ),
     },
     {
       field: "status",
@@ -191,7 +197,9 @@ const Invoices = () => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await TransactionService.getAllTransactions(token);
-      setData(res.reverse());
+
+      const dataList = res.filter((item) => item.transactionTypeId !== 3);
+      setData(dataList.reverse());
     };
 
     fetchData();

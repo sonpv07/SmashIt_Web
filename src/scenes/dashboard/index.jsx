@@ -13,10 +13,29 @@ import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import PieChart from "../../components/PieChart";
+import { useEffect, useState } from "react";
+import TransactionService from "../../service/TransactionService";
+import { token } from "../../service";
+import moment from "moment";
+import { formatNumber } from "../../utils";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [invoiceData, setInvoiceData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await TransactionService.getAllTransactions(token);
+      const dataList = res.filter((item) => item.transactionTypeId !== 3);
+      setInvoiceData(dataList.reverse());
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(invoiceData);
 
   return (
     <Box m="20px">
@@ -172,7 +191,7 @@ const Dashboard = () => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
+            borderBottom={`0.5px solid ${colors.primary[500]}`}
             colors={colors.grey[100]}
             p="15px"
           >
@@ -180,34 +199,36 @@ const Dashboard = () => {
               Giao dịch gần đây
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {invoiceData.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`0.5px solid ${colors.primary[500]}`}
               p="15px"
             >
               <Box>
-                <Typography
+                {/* <Typography
                   color={colors.greenAccent[500]}
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
-                </Typography>
+                  {transaction?.account?.fulllName}
+                </Typography> */}
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {transaction?.account?.fullName}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>
+                {moment(transaction.timestamp).format("DD/MM/YYYY")}
+              </Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                {formatNumber(transaction.amount)}đ
               </Box>
             </Box>
           ))}

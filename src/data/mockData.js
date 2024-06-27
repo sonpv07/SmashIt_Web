@@ -438,13 +438,13 @@ export const courtRevenueData = [
 
 export const mockPieData = [
   {
-    id: "Người chơi",
+    id: "numberOfPlayer",
     label: "Người chơi",
     value: 239,
     color: "#F37148",
   },
   {
-    id: "Chủ sân",
+    id: "numberOfOwner",
     label: "Chủ sân",
     value: 100,
     color: "#299083",
