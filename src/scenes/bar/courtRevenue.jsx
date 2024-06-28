@@ -6,31 +6,96 @@ import axios from "axios";
 import BadmintonCourtService from "../../service/BadmintonCourtService";
 import { token } from "../../service";
 import CourtRevenueChart from "../../components/CourtRevenueChart";
+import { eachDayOfInterval, formatISO, subDays } from "date-fns";
+import AdminService from "../../service/AdminService";
 
 const CourtRevenue = () => {
-  const [chosenCourt, setChosenCourt] = useState("");
+  const [chosenCourt, setChosenCourt] = useState(1);
+  const [chosenCourtId, setChosenCourtId] = useState(1);
 
   const [courtList, setCourtList] = useState([]);
 
   const [filter, setFilter] = useState(0);
 
+  const [data, setData] = useState([]);
+
   const handleChange = (event) => {
     setChosenCourt(event.target.value);
+  };
+
+  const dates = eachDayOfInterval({
+    start: subDays(new Date(), 5),
+    end: new Date(),
+  });
+
+  const formattedDates = dates.map((date) => new Date(date));
+
+  console.log(formattedDates);
+
+  // const handleGetData = async () => {
+  //   for (let i = 0; i < formattedDates.length; i++) {
+  //     console.log(formattedDates[i], "---", chosenCourt);
+  //     const res = await AdminService.getCourtRevenueByDate(
+  //       chosenCourt,
+  //       formattedDates[i].toISOString(),
+  //       token
+  //     );
+
+  //     console.log(res);
+  //   }
+  // };
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const handleGetData = async () => {
+    const results = [];
+
+    try {
+      for (let i = 0; i < formattedDates.length; i++) {
+        const date = formattedDates[i];
+        console.log(date, "---", chosenCourt);
+
+        const res = await AdminService.getCourtRevenueByDate(
+          chosenCourt,
+          date.toISOString(),
+          token
+        );
+
+        results.push({
+          date: `${date.getDate()}/${date.getMonth() + 1}`,
+          revenue: res, // Assuming res.revenue contains the revenue
+        });
+
+        // Introduce a delay of 1 second (1000 ms) between requests
+        await delay(1000);
+      }
+
+      // Assuming setData is a state setter function for the data
+      setData(results);
+
+      console.log(results);
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await BadmintonCourtService.getAllBadmintonCourt(token);
 
+      console.log(res[0].courtName);
+
       if (res) {
-        let getName = res.map((item) => item.courtName);
-        setChosenCourt(getName[0]);
-        setCourtList(getName);
+        setChosenCourt(res[0].id);
+        setCourtList(res);
       }
     };
 
     fetchData();
+    handleGetData();
   }, []);
+
+  console.log(data);
 
   return (
     <Box m="20px">
@@ -49,7 +114,7 @@ const CourtRevenue = () => {
                 label="Sân"
               >
                 {courtList.map((item) => (
-                  <MenuItem value={item}>{item}</MenuItem>
+                  <MenuItem value={item.id}>{item.courtName}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -76,7 +141,7 @@ const CourtRevenue = () => {
           </Box>
         </Box>
         <Box height="75vh">
-          <CourtRevenueChart />
+          <CourtRevenueChart data={data} />
         </Box>
       </Box>
     </Box>

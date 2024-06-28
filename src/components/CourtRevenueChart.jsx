@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
-import { courtRevenueData as data } from "../data/mockData";
+// import { courtRevenueData as data } from "../data/mockData";
 
-const CourtRevenueChart = ({ isDashboard = false }) => {
+const CourtRevenueChart = ({ isDashboard = false, data }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
