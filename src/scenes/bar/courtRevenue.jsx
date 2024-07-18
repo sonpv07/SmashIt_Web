@@ -8,10 +8,12 @@ import { token } from "../../service";
 import CourtRevenueChart from "../../components/CourtRevenueChart";
 import { eachDayOfInterval, formatISO, subDays } from "date-fns";
 import AdminService from "../../service/AdminService";
+import Loading from "../../components/Loading";
 
 const CourtRevenue = () => {
   const [chosenCourt, setChosenCourt] = useState(1);
-  const [chosenCourtId, setChosenCourtId] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [courtList, setCourtList] = useState([]);
 
@@ -50,10 +52,11 @@ const CourtRevenue = () => {
   const handleGetData = async () => {
     const results = [];
 
+    setIsLoading(true);
+
     try {
       for (let i = 0; i < formattedDates.length; i++) {
         const date = formattedDates[i];
-        console.log(date, "---", chosenCourt);
 
         const res = await AdminService.getCourtRevenueByDate(
           chosenCourt,
@@ -67,7 +70,7 @@ const CourtRevenue = () => {
         });
 
         // Introduce a delay of 1 second (1000 ms) between requests
-        await delay(1000);
+        await delay(500);
       }
 
       // Assuming setData is a state setter function for the data
@@ -76,6 +79,8 @@ const CourtRevenue = () => {
       console.log(results);
     } catch (error) {
       console.error("Error fetching data", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -92,8 +97,11 @@ const CourtRevenue = () => {
     };
 
     fetchData();
-    handleGetData();
   }, []);
+
+  useEffect(() => {
+    handleGetData();
+  }, [chosenCourt]);
 
   console.log(data);
 
@@ -140,9 +148,14 @@ const CourtRevenue = () => {
             </FormControl>
           </Box>
         </Box>
-        <Box height="75vh">
-          <CourtRevenueChart data={data} />
-        </Box>
+
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Box height="75vh">
+            <CourtRevenueChart data={data} />
+          </Box>
+        )}
       </Box>
     </Box>
   );
