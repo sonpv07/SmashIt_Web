@@ -30,6 +30,7 @@ import { formatNumber, getType } from "../../utils";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
+import UserService from "../../service/UserService";
 
 // const TransactionTable = ({ data }) => {
 //   return (
@@ -92,6 +93,8 @@ const Dashboard = () => {
 
   const [invoiceData, setInvoiceData] = useState([]);
 
+  const [numUser, setNumUser] = useState(0);
+
   const columns = [
     {
       field: "id",
@@ -149,6 +152,11 @@ const Dashboard = () => {
     },
   ];
 
+  const getNumUser = async () => {
+    const res = await UserService.getNumberOfPlayerAndOwner(token);
+    setNumUser(res.numberOfOwner + res.numberOfPlayer);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await TransactionService.getAllTransactions(token);
@@ -157,6 +165,10 @@ const Dashboard = () => {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    getNumUser();
   }, []);
 
   console.log(invoiceData);
@@ -234,7 +246,7 @@ const Dashboard = () => {
           padding={"20px"}
         >
           <StatBox
-            title={`${formatNumber(30)}`}
+            title={`${formatNumber(numUser)}`}
             subtitle="Lượt tham gia"
             progress="0.30"
             increase="+5%"
