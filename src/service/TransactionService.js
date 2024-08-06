@@ -63,6 +63,26 @@ class TransactionService {
     }
   }
 
+  static async getUserTransactions(token) {
+    try {
+      const response = await getRequest(`${API_URL}/get-all`, token);
+
+      console.log(response);
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        const data = response.data.filter(
+          (item) => item.transactionTypeId > 0 && item.transactionTypeId < 4
+        );
+
+        return data;
+      } else {
+        console.error("get transaction fail", response.data);
+      }
+    } catch (error) {
+      console.error("Error get transaction", error);
+    }
+  }
+
   static async getAllTransactions(token) {
     try {
       const response = await getRequest(`${API_URL}/get-all`, token);
@@ -70,7 +90,11 @@ class TransactionService {
       console.log(response);
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        return response.data;
+        const data = response.data.filter(
+          (item) => item.transactionTypeId > 0 && item.transactionTypeId <= 3
+        );
+
+        return data;
       } else {
         console.error("get transaction fail", response.data);
       }

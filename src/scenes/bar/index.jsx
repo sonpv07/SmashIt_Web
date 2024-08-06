@@ -33,7 +33,7 @@ const Bar = () => {
 
   return (
     <Box m="20px">
-      <Header title="Danh sách đặt sân" subtitle="Theo khung giờ" />
+      <Header title="Khung giờ được yêu thích" />
       <Box height="90vh">
         <Box style={{ display: "flex", gap: 20 }}>
           <Box sx={{ minWidth: 120 }}>

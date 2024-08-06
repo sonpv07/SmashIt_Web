@@ -103,7 +103,7 @@ const CourtRevenue = () => {
     handleGetData();
   }, [chosenCourt]);
 
-  console.log(data);
+  console.log("data", data);
 
   return (
     <Box m="20px">

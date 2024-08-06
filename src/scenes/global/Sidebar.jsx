@@ -17,6 +17,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import MyLocationOutlinedIcon from "@mui/icons-material/MyLocationOutlined";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -37,10 +38,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
+  const { isLogged } = useGlobalContext();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState(isLogged && "Dashboard");
 
   return (
     <Box
@@ -165,6 +167,13 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+              <Item
+                title="Lịch sử giao dịch"
+                to="/transaction"
+                icon={<ReceiptOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
 
               {/* <Typography
                 variant="h6"
@@ -214,7 +223,7 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
               <Item
-                title="Lượng người đung"
+                title="Lượng người dùng"
                 to="/pie"
                 icon={<PieChartOutlineOutlinedIcon />}
                 selected={selected}

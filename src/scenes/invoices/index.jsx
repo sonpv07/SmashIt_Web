@@ -108,7 +108,12 @@ const Invoices = () => {
   };
 
   const columns = [
-    // { field: "id", headerName: "ID", flex: 0.1 },
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.1,
+      valueGetter: (params) => params.api.getRowIndex(params.id) + 1,
+    },
     {
       field: "name",
       headerName: "Họ và Tên",
@@ -144,7 +149,7 @@ const Invoices = () => {
       flex: 1,
       renderCell: (params) => (
         <Typography>
-          {moment(params.row.timestamp).format("DD/MM/YYYY")}
+          {moment(params.row.timestamp).format("HH:mm:ss, DD/MM/YYYY")}
         </Typography>
       ),
     },

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BadmintonCourtService from "../../service/BadmintonCourtService";
 import { token } from "../../service";
+import { formatNumber } from "../../utils";
 
 const Courts = () => {
   const theme = useTheme();
@@ -44,12 +45,14 @@ const Courts = () => {
     {
       field: "pricePerHour",
       headerName: "Giá trong tuần",
+      valueGetter: (params) => `${formatNumber(params.row.pricePerHour)}đ`,
       flex: 1,
     },
     {
       field: "priceAtWeekend",
       headerName: "Giá cuối tuần",
       flex: 1,
+      valueGetter: (params) => `${formatNumber(params.row.priceAtWeekend)}đ`,
     },
     // {
     //   field: "address",
