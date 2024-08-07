@@ -44,7 +44,7 @@ const TransactionHistory = () => {
   const columns = [
     {
       field: "id",
-      headerName: "ID",
+      headerName: "STT",
       flex: 0.1,
       valueGetter: (params) => params.api.getRowIndex(params.id) + 1,
     },
@@ -71,9 +71,11 @@ const TransactionHistory = () => {
       field: "cost",
       headerName: "Số tiền",
       flex: 1,
+      valueGetter: (params) => params.row.amount,
+
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          {formatNumber(params.row.amount)}đ
+          {formatNumber(params.value)}đ
         </Typography>
       ),
     },
@@ -81,20 +83,19 @@ const TransactionHistory = () => {
       field: "date",
       headerName: "Ngày giao dịch",
       flex: 1,
-      renderCell: (params) => (
-        <Typography>
-          {moment(params.row.timestamp).format("HH:mm:ss, DD/MM/YYYY")}
-        </Typography>
-      ),
+      valueGetter: (params) =>
+        moment(params.row.timestamp).format("HH:mm:ss, DD/MM/YYYY"),
+      renderCell: (params) => {
+        <Typography>{params.value}</Typography>;
+      },
     },
 
     {
       field: "statusType",
       headerName: "Loại giao dịch",
       flex: 1,
-      renderCell: (params) => (
-        <Typography>{getType(params.row.transactionTypeId)}</Typography>
-      ),
+      valueGetter: (params) => getType(params.row.transactionTypeId),
+      renderCell: (params) => <Typography>{params.value}</Typography>,
     },
     // {
     //   field: "actions",

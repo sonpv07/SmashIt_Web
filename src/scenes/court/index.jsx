@@ -25,7 +25,7 @@ const Courts = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "courtOwner",
+      field: "owner",
       headerName: "Tên chủ sân",
       flex: 1,
       cellClassName: "name-column--cell",
@@ -69,6 +69,7 @@ const Courts = () => {
 
       if (res) {
         setData(res);
+        console.log(res);
       }
     };
 

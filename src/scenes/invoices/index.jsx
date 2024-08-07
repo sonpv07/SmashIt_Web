@@ -137,9 +137,11 @@ const Invoices = () => {
       field: "cost",
       headerName: "Số tiền",
       flex: 1,
+      valueGetter: (params) => params.row.amount,
+
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          {formatNumber(params.row.amount)}đ
+          {formatNumber(params.value)}đ
         </Typography>
       ),
     },
@@ -147,19 +149,21 @@ const Invoices = () => {
       field: "date",
       headerName: "Ngày giao dịch",
       flex: 1,
-      renderCell: (params) => (
-        <Typography>
-          {moment(params.row.timestamp).format("HH:mm:ss, DD/MM/YYYY")}
-        </Typography>
-      ),
+      valueGetter: (params) =>
+        moment(params.row.timestamp).format("HH:mm:ss, DD/MM/YYYY"),
+      renderCell: (params) => {
+        <Typography>{params.value}</Typography>;
+      },
     },
     {
       field: "status",
       headerName: "Trạng thái",
       flex: 1,
+      valueGetter: (params) => getStatus(params.row.transactionStatusId).status,
+
       renderCell: (params) => (
         <Typography color={getStatus(params.row.transactionStatusId).color}>
-          {getStatus(params.row.transactionStatusId).status}
+          {params.value}
         </Typography>
       ),
     },
@@ -167,9 +171,8 @@ const Invoices = () => {
       field: "statusType",
       headerName: "Loại giao dịch",
       flex: 1,
-      renderCell: (params) => (
-        <Typography>{getType(params.row.transactionTypeId)}</Typography>
-      ),
+      valueGetter: (params) => getType(params.row.transactionTypeId),
+      renderCell: (params) => <Typography>{params.value}</Typography>,
     },
     {
       field: "actions",
@@ -212,10 +215,7 @@ const Invoices = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="Lịch Sử Giao Dịch"
-        subtitle="Danh sách lịch sử giao dịch"
-      />
+      <Header title="Quản Lí Giao Dịch" subtitle="Danh sách giao dịch qua ví" />
       <Box
         m="40px 0 0 0"
         height="75vh"
